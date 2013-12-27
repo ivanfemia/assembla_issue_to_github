@@ -6,8 +6,7 @@
  * Fields in the json mapped to the issue title and body (nothing else is supported) 
  * are specified in the submission form.
  * 
- * Depends on the php-github-api from here:  https://github.com/ornicar/php-github-api
- https://github.com/tan-tan-kanarek/github-php-client
+ * Depends on the github-php-client from here:  https://github.com/tan-tan-kanarek/github-php-client
  */
 session_start();
 set_time_limit(600);
