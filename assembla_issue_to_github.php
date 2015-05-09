@@ -66,7 +66,7 @@ if ($action)
                         case 'milestones':
                             if ( $data[$milestones_header['is_completed']] ) $state = 'closed';
                             else $state = 'open';
-                            $response = $client->issues->milestones->createMilestone($username,$reponame,$data[$milestones_header['title']],$data[$milestones_header['description']],$state,$data[$milestones_header['due_date']]."T00:00:00Z");
+                            $response = $client->issues->milestones->createMilestone($repoowner,$reponame,$data[$milestones_header['title']],$data[$milestones_header['description']],$state,$data[$milestones_header['due_date']]."T00:00:00Z");
                             $milestones[$data[$milestones_header['id']]] = $response->getNumber();
                             break;                              
                         case 'ticket_statuses:fields':
@@ -101,9 +101,9 @@ if ($action)
                                     break;
                             }
                             //try {
-                                $response = $client->issues->createAnIssue($username,$reponame,$data[$ticket_header['summary']],$data[$ticket_header['description']],null,$milestones[$data[$ticket_header['milestone_id']]],$label);
+                                $response = $client->issues->createAnIssue($repoowner,$reponame,$data[$ticket_header['summary']],$data[$ticket_header['description']],null,$milestones[$data[$ticket_header['milestone_id']]],$label);
                                 $issues[$data[$ticket_header['id']]] = $response->getNumber();
-                                $response = $client->issues->editAnIssue($username,$reponame,$data[$ticket_header['summary']],$issues[$data[$ticket_header['id']]],null,null,$state);
+                                $response = $client->issues->editAnIssue($repoowner,$reponame,$data[$ticket_header['summary']],$issues[$data[$ticket_header['id']]],null,null,$state);
 
                                 // Edit an issue to close
                             //} catch ( GitHubClientException $ex) {
@@ -115,7 +115,7 @@ if ($action)
                                 break;
                             case 'ticket_comments':
                                 if ( $data[$ticket_comments_header['comment']] != "" ) {
-                                    $response = $client->issues->comments->createComment($username,$reponame,$issues[$data[$ticket_comments_header['ticket_id']]],$data[$ticket_comments_header['comment']]);
+                                    $response = $client->issues->comments->createComment($repoowner,$reponame,$issues[$data[$ticket_comments_header['ticket_id']]],$data[$ticket_comments_header['comment']]);
                                 }
                                 break;
                                                 
